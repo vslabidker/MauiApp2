@@ -1,6 +1,7 @@
 ﻿using System;
 using RestSharp;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace MauiApp2;
 
@@ -30,15 +31,27 @@ public partial class MainPage : ContentPage
         try
         {
             
-            var response = await client.ExecuteAsync(request); 
+            var response = await client.ExecuteAsync(request);
+            var recipeResponse = JsonConvert.DeserializeObject<MenuItems>(response.Content);
 
             Console.WriteLine($"Status Code: {response.StatusCode}");
             Console.WriteLine($"Response Content: {response.Content}");
 
+
+
             if (response.IsSuccessful)
-            {
-                await DisplayAlert("Ответ API", response.Content, "OK");
+            {   await DisplayAlert("Відповідь",$"{response.Content}", "OK");
+                Console.WriteLine($"First Recipe Title: {recipeResponse.Results[0].Title}");
+                Console.WriteLine($"First Recipe Image URL: {recipeResponse.Results[0].Image}");
+                var image = new Image() { Source = recipeResponse.Results[0].Image };
+
+                recipeTitleLabel.Text = recipeResponse.Results[0].Title;
+                recipeTitleLabel.IsVisible = true;
+
+                recipeImage.Source = recipeResponse.Results[0].Image;
+                recipeImage.IsVisible = true;
             }
+
             else
             {
                 await DisplayAlert("Ошибка", "Не удалось получить данные с API", "OK");

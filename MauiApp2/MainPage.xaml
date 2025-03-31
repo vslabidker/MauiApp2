@@ -4,12 +4,21 @@
              x:Class="MauiApp2.MainPage">
     <VerticalStackLayout Spacing="25" Padding="30">
 
-
         <Entry x:Name="SearchEntry" Placeholder="Введите запрос" />
 
         <Button Text="Поиск" Clicked="OnFetchDataClicked"/>
 
-    </VerticalStackLayout>
+        <Label x:Name="recipeTitleLabel" 
+               HorizontalOptions="Center" 
+               VerticalOptions="Start" 
+               FontSize="Large" 
+               IsVisible="False"/>
 
-    
+        <Image x:Name="recipeImage" 
+               HorizontalOptions="Center" 
+               VerticalOptions="Center" 
+               HeightRequest="200" WidthRequest="200"
+               IsVisible="False"/>
+
+    </VerticalStackLayout>
 </ContentPage>
