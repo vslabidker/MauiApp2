@@ -1,26 +1,24 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp2.MainPage"
              Title="Поиск книг">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
-
             <Entry x:Name="SearchEntry" Placeholder="Введите название книги" />
             <Button Text="Поиск" Clicked="OnSearchClicked" />
 
             <CollectionView x:Name="BooksCollectionView"
-                            IsVisible="False"
-                            ItemsSource="{Binding Books}">
+                            ItemsSource="{Binding Books}"
+                            IsVisible="False">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="LightGray" Padding="10" Margin="5">
-                            <HorizontalStackLayout Spacing="10">
+                            <HorizontalStackLayout>
                                 <CheckBox IsChecked="{Binding IsSelected}" />
                                 <VerticalStackLayout>
                                     <Label Text="{Binding Title}" FontAttributes="Bold" />
-                                    <Image Source="{Binding Thumbnail}" HeightRequest="150" Aspect="AspectFit" />
+                                    <Image Source="{Binding Thumbnail}" HeightRequest="120" Aspect="AspectFit" />
                                 </VerticalStackLayout>
                             </HorizontalStackLayout>
                         </Frame>
@@ -34,7 +32,6 @@
                     IsVisible="False" />
 
             <Button Text="Открыть избранное" Clicked="OnFavoritesClicked" />
-
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
