@@ -5,6 +5,5 @@
     xmlns:pages="clr-namespace:MauiApp2.Pages"
     x:Class="MauiApp2.AppShell">
 
-    <ShellContent Title="Главная" ContentTemplate="{DataTemplate pages:MainPage}" />
-    <ShellContent Title="Избранное" ContentTemplate="{DataTemplate pages:FavoritesPage}" />
+    <ShellContent Title="Поиск книг" ContentTemplate="{DataTemplate pages:MainPage}" />
 </Shell>

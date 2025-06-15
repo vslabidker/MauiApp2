@@ -3,7 +3,7 @@ using MauiApp2.Data;
 using System.Collections.ObjectModel;
 using MauiApp2.Pages;
 
-namespace MauiApp2;
+namespace MauiApp2.Pages;
 
 public partial class MainPage : ContentPage
 {
@@ -39,7 +39,6 @@ public partial class MainPage : ContentPage
         BooksCollectionView.IsVisible = Books.Any();
         SaveButton.IsVisible = Books.Any();
     }
-
     private async void OnSaveClicked(object sender, EventArgs e)
     {
         var selectedBooks = Books.Where(b => b.IsSelected).ToList();

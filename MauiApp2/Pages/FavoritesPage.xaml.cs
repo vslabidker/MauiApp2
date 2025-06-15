@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using MauiApp2.Database;
 using MauiApp2.Models;
-using SQLite;
 
 namespace MauiApp2.Pages;
 
@@ -24,22 +23,32 @@ public partial class FavoritesPage : ContentPage
         FavoritesCollectionView.ItemsSource = favoriteBooks;
     }
 
+    private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        DeleteButton.IsVisible = e.CurrentSelection.Any();
+    }
+
     private async void OnDeleteClicked(object sender, EventArgs e)
     {
-        var button = sender as Button;
-        var book = button?.BindingContext as SavedBook;
-
-        if (book == null)
+        var selected = FavoritesCollectionView.SelectedItems.Cast<SavedBook>().ToList();
+        if (!selected.Any())
+        {
+            await DisplayAlert("Внимание", "Выберите книги для удаления", "OK");
             return;
+        }
 
-        bool confirm = await DisplayAlert("Удалить", $"Удалить книгу '{book.Title}' из избранного?", "Да", "Нет");
-        if (!confirm)
-            return;
+        bool confirm = await DisplayAlert("Удалить", $"Удалить {selected.Count} книг(и) из избранного?", "Да", "Нет");
+        if (!confirm) return;
 
         string dbPath = Path.Combine(FileSystem.AppDataDirectory, "books.db3");
         var db = new BookDatabase(dbPath);
-        await db.DeleteBookAsync(book);
 
-        favoriteBooks.Remove(book);
+        foreach (var book in selected)
+        {
+            await db.DeleteBookAsync(book);
+            favoriteBooks.Remove(book);
+        }
+
+        DeleteButton.IsVisible = false;
     }
 }
