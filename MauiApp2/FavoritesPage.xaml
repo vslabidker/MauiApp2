@@ -1,18 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiApp2.MainPage"
-             Title="Поиск книг">
+             x:Class="MauiApp2.FavoritesPage"
+             Title="Избранные книги">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
 
-            <Entry x:Name="SearchEntry" Placeholder="Введите название книги" />
-            <Button Text="Поиск" Clicked="OnSearchClicked" />
-
-            <CollectionView x:Name="BooksCollectionView"
-                            IsVisible="False"
-                            ItemsSource="{Binding Books}">
+            <CollectionView x:Name="FavoritesCollectionView"
+                            ItemsSource="{Binding FavoriteBooks}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="LightGray" Padding="10" Margin="5">
@@ -28,12 +24,9 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Button x:Name="SaveButton"
-                    Text="Сохранить выбранные книги"
-                    Clicked="OnSaveClicked"
-                    IsVisible="False" />
-
-            <Button Text="Открыть избранное" Clicked="OnFavoritesClicked" />
+            <Button Text="Удалить выбранные"
+                    Clicked="OnDeleteClicked"
+                    IsVisible="True" />
 
         </VerticalStackLayout>
     </ScrollView>

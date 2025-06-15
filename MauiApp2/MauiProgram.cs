@@ -19,6 +19,12 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
-		return builder.Build();
+        builder.Services.AddSingleton<BookDatabase>(s =>
+        {
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "books.db3");
+            return new BookDatabase(dbPath);
+        });
+
+        return builder.Build();
 	}
 }
