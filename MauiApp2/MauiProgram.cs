@@ -1,7 +1,8 @@
 ﻿using MauiApp2;
 using MauiApp2.Data;
 using MauiApp2.Database;
-using MauiApp2.Pages;
+using MauiApp2.ViewModels;
+using MauiApp2.Views;
 using Microsoft.Extensions.Logging;
 
 public static class MauiProgram
@@ -18,19 +19,28 @@ public static class MauiProgram
                });
 
         string dbPath = Path.Combine(FileSystem.AppDataDirectory, "books.db3");
+        builder.Services.AddSingleton<BookDatabase>(_ => new BookDatabase(dbPath));
 
-        builder.Services.AddSingleton(new LocalDataSource(dbPath));
-        builder.Services.AddSingleton<RemoteDataSource>();
-        builder.Services.AddSingleton<BookRepository>();
-        builder.Services.AddSingleton<BookDatabase>();
+        builder.Services.AddSingleton<AppShell>();
+        builder.Services.AddSingleton<ILocalDataSource>(new LocalDataSource(dbPath));
+        builder.Services.AddSingleton<IBookRepository, BookRepository>();
+        builder.Services.AddSingleton<IRemoteDataSource, RemoteDataSource>();
 
-        builder.Services.AddTransient<MainPage>();
-        builder.Services.AddTransient<FavoritesPage>();
+        builder.Services.AddSingleton<MainViewModel>();
+        builder.Services.AddSingleton<FavoritesViewModel>();
 
+        builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddSingleton<FavoritesPage>();
+       
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
 
-        return builder.Build();
+        var mauiApp = builder.Build();
+
+        // Важно: передаём сервисы в App
+        App.Services = mauiApp.Services;
+
+        return mauiApp;
     }
 }

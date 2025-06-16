@@ -1,0 +1,41 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp2.Views.FavoritesPage"
+             Title="Избранное">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20">
+
+            <CollectionView x:Name="BooksCollectionView"
+                        ItemsSource="{Binding Favorites}"
+                        SelectionMode="Multiple"
+                        SelectionChanged="OnSelectionChanged">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" Margin="5" Padding="10">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Title}" FontAttributes="Bold" />
+                                <Image Source="{Binding Thumbnail}" HeightRequest="150" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="Удалить"
+                IsVisible="{Binding IsDeleteVisible}"
+                Command="{Binding DeleteCommand}" />
+
+            <Frame BorderColor="DarkGray" Padding="10" Margin="10"
+               IsVisible="{Binding IsLandscape}">
+                <VerticalStackLayout>
+                    <Label Text="Детали книги" FontAttributes="Bold" FontSize="18" />
+                    <Label Text="{Binding SelectedBook.Title}" FontSize="16" />
+                    <Image Source="{Binding SelectedBook.Thumbnail}" HeightRequest="200" />
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

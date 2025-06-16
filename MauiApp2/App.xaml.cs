@@ -1,16 +1,16 @@
-﻿namespace MauiApp2
+﻿using MauiApp2.Views;
+
+namespace MauiApp2;
+
+public partial class App : Application
 {
-    public partial class App : Application
+    public static IServiceProvider Services { get; set; }
+
+    public App(IServiceProvider serviceProvider)
     {
-        public App()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        Services = serviceProvider;
 
-        protected override Window CreateWindow(IActivationState? activationState)
-        {
-            return new Window(new AppShell());
-        }
-
+        MainPage = Services.GetRequiredService<AppShell>();
     }
 }

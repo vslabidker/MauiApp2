@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:pages="clr-namespace:MauiApp2.Pages"
-    x:Class="MauiApp2.AppShell">
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:MauiApp2.Views"
+       x:Class="MauiApp2.AppShell">
 
-    <ShellContent Title="Поиск книг" ContentTemplate="{DataTemplate pages:MainPage}" />
+    <ShellContent Title="Поиск книг" ContentTemplate="{DataTemplate views:MainPage}" />
+
 </Shell>
